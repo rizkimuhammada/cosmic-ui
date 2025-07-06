@@ -105,16 +105,17 @@ function App() {
                   <div className="me-10">Search Docs…</div>
                   <div className="ms-auto">⌘+k</div>
                 </Button>
-                <Button
-                  shape="flat"
-                  className="py-[0.45rem] px-6 ms-1 text-foreground [--color-frame-1-stroke:var(--color-accent)]/50 [--color-frame-1-fill:var(--color-accent)]/20"
-                  onClick={() =>
-                    (window.location.href =
-                      "https://github.com/rizkimuhammada/cosmic-ui")
-                  }
+                <a
+                  target="_blank"
+                  href="https://github.com/rizkimuhammada/cosmic-ui"
                 >
-                  <Github className="size-4 stroke-[1.2]" />
-                </Button>
+                  <Button
+                    shape="flat"
+                    className="py-[0.45rem] px-6 ms-1 text-foreground [--color-frame-1-stroke:var(--color-accent)]/50 [--color-frame-1-fill:var(--color-accent)]/20"
+                  >
+                    <Github className="size-4 stroke-[1.2]" />
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
