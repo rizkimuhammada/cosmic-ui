@@ -1,0 +1,51 @@
+{
+  "name": "cosmic",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@left4code/svg-renderer": "^1.0.0",
+    "@sethwebster/react-fps-counter": "^0.0.19",
+    "@tailwindcss/vite": "^4.1.10",
+    "@zag-js/accordion": "^1.18.2",
+    "@zag-js/checkbox": "^1.18.2",
+    "@zag-js/dialog": "^1.18.2",
+    "@zag-js/menu": "^1.18.2",
+    "@zag-js/presence": "^1.18.2",
+    "@zag-js/radio-group": "^1.18.2",
+    "@zag-js/react": "^1.18.2",
+    "@zag-js/switch": "^1.18.2",
+    "@zag-js/tabs": "^1.18.2",
+    "chart.js": "^4.5.0",
+    "class-variance-authority": "^0.7.1",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.518.0",
+    "motion": "^12.19.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.2",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss": "^4.1.10",
+    "tw-animate-css": "^1.3.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/node": "^24.0.1",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5"
+  }
+}
