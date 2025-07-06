@@ -1,6 +1,6 @@
 # Cosmic UI
 
-Accessible and customizable components that you can copy and paste into your apps. Free. Open Source. **Use this to build your own component library**.
+Create interfaces that feel out of this world. Futuristic components for modern apps. Free and open source.
 
 ![hero](public/preview.jpeg)
 
