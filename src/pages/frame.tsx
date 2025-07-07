@@ -93,7 +93,7 @@ function Main() {
               {`
 import { useRef, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import { type Paths, setupSvgRenderer } from "@/utils/frame";
+import { type Paths, setupSvgRenderer } from "@left4code/svg-renderer";
 
 function Frame({
   className,
