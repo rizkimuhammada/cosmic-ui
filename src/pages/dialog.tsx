@@ -73,7 +73,7 @@ function Main() {
                             <Input type="text" placeholder="Email" />
                             <Input type="password" placeholder="Password" />
                           </div>
-                          <div className="flex justify-end mt-3 pb-2">
+                          <div className="flex flex-col sm:flex-row gap-y-3 justify-end mt-3 pb-2">
                             <DialogCloseTrigger asChild>
                               <Button variant="secondary" className="min-w-30">
                                 <Unplug className="size-4 me-2.5" />
@@ -111,7 +111,7 @@ function Main() {
           <Input type="text" placeholder="Email" />
           <Input type="password" placeholder="Password" />
         </div>
-        <div className="flex justify-end mt-3 pb-2">
+        <div className="flex flex-col sm:flex-row gap-y-3 justify-end mt-3 pb-2">
           <DialogCloseTrigger asChild>
             <Button variant="secondary" className="min-w-30">
               <Unplug className="size-4 me-2.5" />
@@ -411,7 +411,7 @@ import {
           <Input type="text" placeholder="Email" />
           <Input type="password" placeholder="Password" />
         </div>
-        <div className="flex justify-end mt-3 pb-2">
+        <div className="flex flex-col sm:flex-row gap-y-3 justify-end mt-3 pb-2">
           <DialogCloseTrigger asChild>
             <Button variant="secondary" className="min-w-30">
               <Unplug className="size-4 me-2.5" />
