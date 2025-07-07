@@ -154,11 +154,19 @@ function App() {
             <Outlet />
             <div className="text-center text-foreground/60 mt-24 mb-20">
               Powered by synthetic caffeine ∙ Deployed by{" "}
-              <a href="" className="font-medium text-foreground/70">
+              <a
+                href="https://github.com/rizkimuhammada"
+                target="_blank"
+                className="font-medium text-foreground/70"
+              >
                 Left4code
               </a>{" "}
               ∙ Signal traceable on{" "}
-              <a href="" className="font-medium text-foreground/70">
+              <a
+                href="https://github.com/rizkimuhammada/cosmic-ui"
+                target="_blank"
+                className="font-medium text-foreground/70"
+              >
                 GitHub
               </a>
               .
