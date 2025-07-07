@@ -1,12 +1,32 @@
+import { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 import { NavLink } from "react-router";
+import { MobileMenuContext } from "../App";
+import { X } from "lucide-react";
 
 function Main() {
+  const { showMenu, setShowMenu } = useContext(MobileMenuContext);
+
   return (
-    <div className="flex flex-col gap-10 px-10 text-foreground/50 mt-10">
+    <div
+      className={twMerge([
+        "flex flex-col gap-10 px-10 text-foreground/50 lg:mt-10 pt-10 lg:pt-0",
+        "before:fixed before:absolute before:w-screen before:left-0 before:top-0 before:h-screen before:bg-background/5 before:backdrop-blur before:z-[-1]",
+        "after:fixed after:absolute after:inset-0 after:bg-background/80 after:border-r after:border-primary/30 lg:after:backdrop-none after:z-[-1]",
+        "w-80 lg:w-auto before:hidden lg:after:hidden lg:border-0 top-0 left-0 h-screen lg:h-auto z-60 transition-[margin] fixed -ml-[100%] lg:flex lg:relative lg:ml-0 [&.active]:ml-0 [&.active]:before:block [&.active]:lg:before:hidden",
+        showMenu && "active",
+      ])}
+    >
+      <div
+        onClick={() => setShowMenu(false)}
+        className="absolute top-0 right-0 -mr-14 mt-8 cursor-pointer text-foreground lg:hidden"
+      >
+        <X className="size-6" />
+      </div>
       <div className="flex flex-col">
         <div className="font-medium text-foreground mb-2">Getting Started</div>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs"
           className={({ isActive }) =>
             twMerge([
@@ -19,6 +39,7 @@ function Main() {
           Introduction
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/how-to-use"
           className={({ isActive }) =>
             twMerge([
@@ -33,6 +54,7 @@ function Main() {
       <div className="flex flex-col">
         <div className="font-medium text-foreground mb-2">Components</div>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/frame"
           className={({ isActive }) =>
             twMerge([
@@ -44,6 +66,7 @@ function Main() {
           Frame
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/menu"
           className={({ isActive }) =>
             twMerge([
@@ -55,6 +78,7 @@ function Main() {
           Menu
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/alert"
           className={({ isActive }) =>
             twMerge([
@@ -66,6 +90,7 @@ function Main() {
           Alert
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/accordion"
           className={({ isActive }) =>
             twMerge([
@@ -77,6 +102,7 @@ function Main() {
           Accordion
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/dialog"
           className={({ isActive }) =>
             twMerge([
@@ -88,6 +114,7 @@ function Main() {
           Dialog
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/tabs"
           className={({ isActive }) =>
             twMerge([
@@ -99,6 +126,7 @@ function Main() {
           Tabs
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/button"
           className={({ isActive }) =>
             twMerge([
@@ -110,6 +138,7 @@ function Main() {
           Button
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/input"
           className={({ isActive }) =>
             twMerge([
@@ -121,6 +150,7 @@ function Main() {
           Input
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/switch"
           className={({ isActive }) =>
             twMerge([
@@ -132,6 +162,7 @@ function Main() {
           Switch
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/textarea"
           className={({ isActive }) =>
             twMerge([
@@ -143,6 +174,7 @@ function Main() {
           Textarea
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/radio-group"
           className={({ isActive }) =>
             twMerge([
@@ -154,6 +186,7 @@ function Main() {
           Radio Group
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/checkbox"
           className={({ isActive }) =>
             twMerge([
@@ -165,6 +198,7 @@ function Main() {
           Checkbox
         </NavLink>
         <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/chart"
           className={({ isActive }) =>
             twMerge([
