@@ -27,7 +27,7 @@ function Main() {
           </Link>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-7 w-full mt-44">
+      <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-7 w-full mt-44 px-5 2xl:px-0">
         <div
           className={twMerge([
             "h-95 relative backdrop-blur-xl sm:mt-5",

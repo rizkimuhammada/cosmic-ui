@@ -12,14 +12,14 @@ import { useId, useEffect, useRef, useState } from "react";
 
 function Wrapper({ children }: React.PropsWithChildren) {
   return (
-    <div className="px-20 py-14 col-span-7 border border-primary/20 bg-primary/5">
+    <div className="p-7 sm:p-10 lg:px-20 lg:py-14 col-span-9 xl:col-span-7 border border-primary/20 bg-primary/5">
       {children}
     </div>
   );
 }
 
 function Menu({ children }: React.PropsWithChildren) {
-  return <div className="px-10 col-span-2">{children}</div>;
+  return <div className="hidden xl:block px-10 col-span-2">{children}</div>;
 }
 
 function Title({ children }: React.PropsWithChildren) {
@@ -167,7 +167,7 @@ function Preview({
         </div>
         <div
           {...api.getContentProps({ value: "preview" })}
-          className="mt-4 backdrop-blur-md font-orbitron text-sm border bg-primary/5 border-primary/20 shadow-lg shadow-primary/10 min-h-100 flex items-center justify-center py-50 px-20"
+          className="mt-4 backdrop-blur-md font-orbitron text-sm border bg-primary/5 border-primary/20 shadow-lg shadow-primary/10 min-h-100 flex items-center justify-center px-5 py-8 sm:p-8 lg:py-50 lg:px-20"
         >
           {Preview}
         </div>
