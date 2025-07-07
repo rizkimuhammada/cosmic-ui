@@ -31,8 +31,8 @@ function Main() {
                   <>
                     <AlertRoot>
                       <AlertTitle>
-                        <SquareCheck className="size-4.5 me-2.5" /> Success!
-                        Your changes have been saved
+                        <SquareCheck className="flex-none size-4.5 me-2.5" />{" "}
+                        Success! Your changes have been saved
                       </AlertTitle>
                       <AlertDescription>
                         This is an alert with icon, title and description.
