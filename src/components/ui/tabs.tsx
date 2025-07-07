@@ -71,7 +71,7 @@ function TabsTrigger({
   return (
     <Button
       className={twMerge([
-        "opacity-80 [&>div>svg]:hidden -mr-4",
+        "text-nowrap opacity-80 [&>div>svg]:hidden -mr-4",
         "data-[selected]:text-shadow-lg text-shadow-primary",
         "data-[selected]:opacity-100 data-[selected]:drop-shadow-[0_0px_20px_var(--color-primary)]",
         "[&:first-of-type>div>svg:nth-child(1)]:block",
@@ -102,7 +102,7 @@ function TabsContent({
   return (
     <div
       className={twMerge([
-        "relative px-10 pt-5 pb-10 min-h-50 w-150",
+        "relative px-10 pt-5 pb-10 min-h-50 w-full",
         "[--color-frame-1-stroke:var(--color-primary)]",
         "[--color-frame-1-fill:var(--color-primary)]/20",
         "[--color-frame-2-stroke:var(--color-primary)]",
