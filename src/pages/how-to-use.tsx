@@ -23,7 +23,7 @@ function Main() {
               for Vite.
             </Subtitle>
           </div>
-          <div className="mt-5">
+          <div className="mt-5" id="create-project">
             <SectionTitle>Create project</SectionTitle>
             <SectionContent>
               Start by creating a new React project using vite. Select the React
@@ -31,7 +31,7 @@ function Main() {
             </SectionContent>
             <InstallPackage>create vite@latest</InstallPackage>
           </div>
-          <div>
+          <div id="add-tailwindcss">
             <SectionTitle>Add Tailwind CSS</SectionTitle>
             <InstallPackage>add tailwindcss @tailwindcss/vite</InstallPackage>
             <SectionContent>
@@ -47,7 +47,7 @@ function Main() {
               `}
             </PreviewCode>
           </div>
-          <div>
+          <div id="edit-tsconfig">
             <SectionTitle>Edit tsconfig.json file</SectionTitle>
             <SectionContent>
               The current version of Vite splits TypeScript configuration into
@@ -95,7 +95,7 @@ function Main() {
               `}
             </PreviewCode>
           </div>
-          <div>
+          <div id="edit-tsconfig-app">
             <SectionTitle>Edit tsconfig.app.json file</SectionTitle>
             <SectionContent>
               Add the following code to the{" "}
@@ -121,7 +121,7 @@ function Main() {
               `}
             </PreviewCode>
           </div>
-          <div>
+          <div id="update-vite-config">
             <SectionTitle>Update vite.config.ts</SectionTitle>
             <SectionContent>
               Add the following code to the vite.config.ts so your app can
@@ -147,7 +147,7 @@ export default defineConfig({
               `}
             </PreviewCode>
           </div>
-          <div>
+          <div id="add-components">
             <SectionTitle>Add Components</SectionTitle>
             <SectionContent>
               You can now start adding components to your project.
@@ -170,7 +170,26 @@ export default App
           </div>
         </div>
       </Wrapper>
-      <Menu></Menu>
+      <Menu>
+        <a className="hover:text-foreground py-1" href="#create-project">
+          Create project
+        </a>
+        <a className="hover:text-foreground py-1" href="#add-tailwindcss">
+          Add Tailwind CSS
+        </a>
+        <a className="hover:text-foreground py-1" href="#edit-tsconfig">
+          Edit tsconfig.json file
+        </a>
+        <a className="hover:text-foreground py-1" href="#edit-tsconfig-app">
+          Edit tsconfig.app.json file
+        </a>
+        <a className="hover:text-foreground py-1" href="#update-vite-config">
+          Update vite.config.ts
+        </a>
+        <a className="hover:text-foreground py-1" href="#add-components">
+          Add Components
+        </a>
+      </Menu>
     </>
   );
 }

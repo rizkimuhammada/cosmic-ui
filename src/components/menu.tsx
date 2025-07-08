@@ -10,10 +10,9 @@ function Main() {
   return (
     <div
       className={twMerge([
-        "flex flex-col gap-10 px-10 text-foreground/50 lg:mt-10 pt-10 lg:pt-0",
         "before:fixed before:absolute before:w-screen before:left-0 before:top-0 before:h-screen before:bg-background/5 before:backdrop-blur before:z-[-1]",
         "after:fixed after:absolute after:inset-0 after:bg-background/80 after:border-r after:border-primary/30 lg:after:backdrop-none after:z-[-1]",
-        "w-80 lg:w-auto before:hidden lg:after:hidden lg:border-0 top-0 left-0 h-screen lg:h-auto z-60 transition-[margin] fixed -ml-[100%] lg:flex lg:relative lg:ml-0 [&.active]:ml-0 [&.active]:before:block [&.active]:lg:before:hidden",
+        "pt-10 top-0 left-0 fixed flex flex-col gap-10 text-foreground/50 w-70 lg:w-[25%] xl:w-[15%] lg:top-30 bottom-0 lg:pt-0 lg:pt-10 pl-10 z-60 -ml-[100%] transition-[margin] lg:left-auto lg:ml-0 before:hidden after:hidden [&.active]:ml-0 [&.active]:after:block [&.active]:before:block [&.active]:lg:before:hidden [&.active]:lg:after:hidden",
         showMenu && "active",
       ])}
     >

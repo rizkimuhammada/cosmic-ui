@@ -69,7 +69,7 @@ function Main() {
               })}
             </Preview>
           </div>
-          <div>
+          <div id="installation">
             <SectionTitle>Installation</SectionTitle>
             <SectionContent>Install the following dependencies:</SectionContent>
             <InstallPackage>add @zag-js/checkbox @zag-js/react</InstallPackage>
@@ -168,7 +168,7 @@ export { CheckboxRoot, CheckboxLabel, CheckboxControl, CheckboxHiddenInput };
               Update the import paths to match your project setup.
             </SectionContent>
           </div>
-          <div>
+          <div id="usage">
             <SectionTitle>Usage</SectionTitle>
             <PreviewCode>
               {`
@@ -192,7 +192,14 @@ import {
           </div>
         </div>
       </Wrapper>
-      <Menu></Menu>
+      <Menu>
+        <a className="hover:text-foreground py-1" href="#installation">
+          Installation
+        </a>
+        <a className="hover:text-foreground py-1" href="#usage">
+          Usage
+        </a>
+      </Menu>
     </>
   );
 }

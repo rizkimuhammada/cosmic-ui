@@ -11,7 +11,7 @@ function Main() {
     <>
       <Wrapper>
         <div className="flex flex-col gap-5">
-          <div>
+          <div id="introduction">
             <Title>Introduction</Title>
             <Subtitle>
               <a href="https://www.cosmic-ui.com" className="font-medium">
@@ -95,7 +95,7 @@ function Main() {
               </ul>
             </div>
           </div>
-          <div>
+          <div id="svg-first">
             <SectionTitle>SVG First</SectionTitle>
             <SectionContent className="mb-5 opacity-90">
               <a href="https://www.cosmic-ui.com" className="font-medium">
@@ -121,7 +121,7 @@ function Main() {
               </ul>
             </div>
           </div>
-          <div>
+          <div id="zagjs-integration">
             <SectionTitle>
               Selective{" "}
               <a
@@ -129,7 +129,7 @@ function Main() {
                 target="_blank"
                 className="font-medium"
               >
-                zag.js
+                Zag.js
               </a>{" "}
               Integration
             </SectionTitle>
@@ -174,7 +174,7 @@ function Main() {
               </ul>
             </div>
           </div>
-          <div>
+          <div id="scifi-defaults">
             <SectionTitle>Beautiful Sci-Fi Defaults</SectionTitle>
             <SectionContent className="mb-5 opacity-90">
               <a href="https://www.cosmic-ui.com" className="font-medium">
@@ -200,7 +200,7 @@ function Main() {
               customize for your specific project needs.
             </SectionContent>
           </div>
-          <div>
+          <div id="full-control">
             <SectionTitle>Full Control</SectionTitle>
             <SectionContent className="mb-5 opacity-90">
               Unlike traditional libraries, you are not locked into predefined
@@ -225,7 +225,23 @@ function Main() {
           </div>
         </div>
       </Wrapper>
-      <Menu></Menu>
+      <Menu>
+        <a className="hover:text-foreground py-1" href="#introduction">
+          Introduction
+        </a>
+        <a className="hover:text-foreground py-1" href="#svg-first">
+          SVG First
+        </a>
+        <a className="hover:text-foreground py-1" href="#zagjs-integration">
+          Selective Zag.js Integration
+        </a>
+        <a className="hover:text-foreground py-1" href="#scifi-defaults">
+          Beautiful Sci-Fi Defaults
+        </a>
+        <a className="hover:text-foreground py-1" href="#full-control">
+          Full Control
+        </a>
+      </Menu>
     </>
   );
 }

@@ -38,7 +38,7 @@ function Main() {
               })}
             </Preview>
           </div>
-          <div>
+          <div id="installation">
             <SectionTitle>Installation</SectionTitle>
             <SectionContent>
               Copy and paste the following code into your project.
@@ -88,7 +88,7 @@ export { Textarea };
               Update the import paths to match your project setup.
             </SectionContent>
           </div>
-          <div>
+          <div id="usage">
             <SectionTitle>Usage</SectionTitle>
             <PreviewCode>
               {`
@@ -103,7 +103,14 @@ import { Textarea } from "@/components/ui/textarea";
           </div>
         </div>
       </Wrapper>
-      <Menu></Menu>
+      <Menu>
+        <a className="hover:text-foreground py-1" href="#installation">
+          Installation
+        </a>
+        <a className="hover:text-foreground py-1" href="#usage">
+          Usage
+        </a>
+      </Menu>
     </>
   );
 }

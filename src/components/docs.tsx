@@ -12,14 +12,21 @@ import { useId, useEffect, useRef, useState } from "react";
 
 function Wrapper({ children }: React.PropsWithChildren) {
   return (
-    <div className="p-7 sm:p-10 lg:px-20 lg:py-14 col-span-9 xl:col-span-7 border border-primary/20 bg-primary/5">
+    <div className="p-7 sm:p-10 lg:px-20 lg:py-14 sm:mx-10 lg:ml-0 xl:mr-0 col-span-10 xl:col-span-8 border border-primary/20 bg-primary/5">
       {children}
     </div>
   );
 }
 
 function Menu({ children }: React.PropsWithChildren) {
-  return <div className="hidden xl:block px-10 col-span-2">{children}</div>;
+  return (
+    <div className="hidden xl:block pl-14 col-span-2 text-foreground/50">
+      <div className="flex flex-col lg:mt-10 pt-10 lg:pt-0 sticky top-40">
+        <div className="font-medium text-foreground/70 mb-2">On This Page</div>
+        {children}
+      </div>
+    </div>
+  );
 }
 
 function Title({ children }: React.PropsWithChildren) {
