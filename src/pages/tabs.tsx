@@ -221,7 +221,7 @@ function TabsContent({
   return (
     <div
       className={twMerge([
-        "relative px-10 pt-5 pb-10 min-h-50 w-full",
+        "relative px-10 pt-5 pb-10 min-h-50 w-full data-[selected]:animate-in data-[selected]:fade-in-0 data-[selected]:zoom-in-80 data-[selected]:duration-500",
         "[--color-frame-1-stroke:var(--color-primary)]",
         "[--color-frame-1-fill:var(--color-primary)]/20",
         "[--color-frame-2-stroke:var(--color-primary)]",

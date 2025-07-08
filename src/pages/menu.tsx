@@ -227,6 +227,8 @@ function MenuContent({ children, className }: React.ComponentProps<"div">) {
       hidden
       className={twMerge([
         "group relative min-w-(--reference-width) px-6 py-7 outline-none mt-1.5 data-[state=open]:drop-shadow-[0_0px_20px_--alpha(var(--color-primary)_/_80%)]",
+        "[&[data-state='open']]:animate-in [&[data-state='open']]:zoom-in-80 [&[data-state='open']]:fade-in-0 [&[data-state='open']]:duration-200 [&[data-state='open'][data-placement='bottom-start']]:slide-in-from-top-2 [&[data-state='open'][data-placement='left-start']]:slide-in-from-right-2 [&[data-state='open'][data-placement='right-start']]:slide-in-from-left-2 [&[data-state='open'][data-placement='top-start']]:slide-in-from-bottom-2",
+        "[&[data-state='closed']]:animate-out [&[data-state='closed']]:zoom-out-80 [&[data-state='closed']]:fade-out-0 [&[data-state='closed']]:duration-200",
         "[--color-frame-1-stroke:var(--color-primary)]",
         "[--color-frame-1-fill:var(--color-primary)]/20",
         "[--color-frame-2-stroke:var(--color-accent)]",
