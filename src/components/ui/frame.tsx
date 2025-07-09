@@ -1,12 +1,16 @@
 import { useRef, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import { type Paths, setupSvgRenderer } from "@left4code/svg-renderer";
+import { type Paths, setupSvgRenderer } from "../../frame/index";
 
 function Frame({
   className,
   paths,
+  enableBackdropBlur,
   ...props
-}: { paths: Paths } & React.ComponentProps<"svg">) {
+}: {
+  paths: Paths;
+  enableBackdropBlur?: boolean;
+} & React.ComponentProps<"svg">) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -14,6 +18,7 @@ function Frame({
       const instance = setupSvgRenderer({
         el: svgRef.current,
         paths,
+        enableBackdropBlur,
       });
 
       return () => instance.destroy();
