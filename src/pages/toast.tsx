@@ -123,7 +123,7 @@ const toaster = createStore({
           <div id="installation">
             <SectionTitle>Installation</SectionTitle>
             <SectionContent>Install the following dependencies:</SectionContent>
-            <InstallPackage>add @zag-js/presence @zag-js/react</InstallPackage>
+            <InstallPackage>add @zag-js/toast @zag-js/react</InstallPackage>
             <SectionContent>
               Copy and paste the following code into your project.
             </SectionContent>
