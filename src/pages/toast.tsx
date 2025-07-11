@@ -200,7 +200,14 @@ function ToastRoot({ children, className }: React.ComponentProps<"div">) {
 
   return (
     <ToastContext.Provider value={api}>
-      <div {...api.getRootProps()}>
+      <div
+        {...api.getRootProps()}
+        className={twMerge([
+          "[translate:var(--x)_var(--y)] [scale:var(--scale)] [z-index:var(--z-index)] [height:var(--height)] [opacity:var(--opacity)] [will-change:translate,scale]",
+          "[transition:translate_400ms,_scale_400ms,_opacity_400ms] [transition-timing-function:cubic-bezier(0.21,_1.02,_0.73,_1)]",
+          "data-[state=closed]:[transition:translate_400ms,_scale_400ms,_opacity_200ms] data-[state=closed]:[transition-timing-function:cubic-bezier(0.06,_0.71,_0.55,_1)]",
+        ])}
+      >
         <div
           className={twMerge([
             "relative me-1 px-10 py-6 font-orbitron text-sm",
