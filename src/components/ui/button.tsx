@@ -42,11 +42,15 @@ function Button({
   children,
   variant = "default",
   shape = "default",
+  enableBackdropBlur = false,
+  enableViewBox = false,
   customPaths,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     customPaths?: string[];
+    enableBackdropBlur?: boolean;
+    enableViewBox?: boolean;
   }) {
   return (
     <button
@@ -56,6 +60,8 @@ function Button({
       <div className="absolute inset-0 -mb-2">
         {!customPaths && (shape == "default" || shape == "flat") && (
           <Frame
+            enableBackdropBlur={enableBackdropBlur}
+            enableViewBox={enableViewBox}
             paths={JSON.parse(
               '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","17","0"],["L","100% - 7","0"],["L","100% + 0","0% + 9.5"],["L","100% - 18","100% - 6"],["L","4","100% - 6"],["L","0","100% - 15"],["L","17","0"]]},{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-2-stroke)","fill":"var(--color-frame-2-fill)"},"path":[["M","9","100% - 6"],["L","100% - 22","100% - 6"],["L","100% - 25","100% + 0"],["L","12","100% + 0"],["L","9","100% - 6"]]}]'
             )}
@@ -63,6 +69,8 @@ function Button({
         )}
         {!customPaths && shape == "simple" && (
           <Frame
+            enableBackdropBlur={enableBackdropBlur}
+            enableViewBox={enableViewBox}
             paths={JSON.parse(
               '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","17","0"],["L","100% - 0","0"],["L","100% - 0","100% - 6"],["L","0% + 3","100% - 6"],["L","0% - 0","100% - 16"],["L","17","0"]]},{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-2-stroke)","fill":"var(--color-frame-2-fill)"},"path":[["M","8","100% - 6"],["L","100% - 5","100% - 6"],["L","100% - 7","100% - 0"],["L","10","100% - 0"],["L","8","100% - 6"]]}]'
             )}

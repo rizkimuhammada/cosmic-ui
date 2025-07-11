@@ -17,6 +17,7 @@ import Checkbox from "../pages/checkbox";
 import Chart from "../pages/chart";
 import Frame from "../pages/frame";
 import Colors from "../pages/colors";
+import Toast from "../pages/toast";
 import App from "../App.tsx";
 
 function Router() {
@@ -96,6 +97,10 @@ function Router() {
             {
               path: "colors",
               element: <Colors />,
+            },
+            {
+              path: "toast",
+              element: <Toast />,
             },
           ],
         },

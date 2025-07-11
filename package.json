@@ -22,6 +22,7 @@
     "@zag-js/react": "^1.18.2",
     "@zag-js/switch": "^1.18.2",
     "@zag-js/tabs": "^1.18.2",
+    "@zag-js/toast": "^1.18.2",
     "chart.js": "^4.5.0",
     "class-variance-authority": "^0.7.1",
     "gsap": "^3.13.0",

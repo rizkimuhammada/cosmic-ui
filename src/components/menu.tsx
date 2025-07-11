@@ -126,6 +126,21 @@ function Main() {
         </NavLink>
         <NavLink
           onClick={() => setShowMenu(false)}
+          to="/docs/toast"
+          className={({ isActive }) =>
+            twMerge([
+              "hover:text-foreground py-1",
+              isActive && "text-foreground",
+            ])
+          }
+        >
+          Toast{" "}
+          <span className="px-2 py-px border border-primary/30 bg-primary/10 text-sm ms-2">
+            New
+          </span>
+        </NavLink>
+        <NavLink
+          onClick={() => setShowMenu(false)}
           to="/docs/button"
           className={({ isActive }) =>
             twMerge([

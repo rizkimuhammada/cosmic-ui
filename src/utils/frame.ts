@@ -124,11 +124,15 @@ function createSvgElement({
   paths,
   width,
   height,
+  enableBackdropBlur,
+  enableViewBox,
 }: {
   el: SVGSVGElement;
   paths: Paths;
   width: number;
   height: number;
+  enableBackdropBlur: boolean;
+  enableViewBox: boolean;
 }) {
   const prevWidth = el.getAttribute("data-width");
   const prevHeight = el.getAttribute("data-height");
@@ -139,6 +143,11 @@ function createSvgElement({
 
     // Clear previous paths
     el.querySelectorAll("path").forEach((path) => path.remove());
+
+    // Enable viewbox
+    if (enableViewBox) {
+      el.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    }
 
     // Create new paths
     createSvgPaths({
@@ -160,6 +169,40 @@ function createSvgElement({
 
       el && el.appendChild(pathElement);
     });
+
+    // Backdrop blur masking
+    if (enableBackdropBlur) {
+      const serializer = new XMLSerializer();
+      const svgString = serializer.serializeToString(el);
+      const encoded = encodeURIComponent(svgString);
+      const dataUri = `data:image/svg+xml,${encoded}`;
+
+      let divMask = document.createElement("div");
+
+      if (
+        el.nextElementSibling?.hasAttribute("data-backdrop") &&
+        el.nextElementSibling instanceof HTMLDivElement
+      ) {
+        divMask = el.nextElementSibling;
+      } else {
+        divMask.style.opacity = "0";
+      }
+
+      divMask.style.willChange = "backdrop-blur";
+      divMask.style.transition = "opacity 0.8s ease";
+      divMask.style.maskImage = `url("${dataUri}")`;
+      divMask.style.maskRepeat = "no-repeat";
+      divMask.style.maskSize = "contain";
+      divMask.style.zIndex = "-1";
+      divMask.style.backdropFilter = "blur(10px)";
+      divMask.setAttribute("data-backdrop", "true");
+      divMask.setAttribute("class", el.getAttribute("class") ?? "");
+      el.parentNode?.insertBefore(divMask, el.nextSibling);
+
+      setTimeout(() => {
+        divMask.style.opacity = "1";
+      }, 0);
+    }
   }
 }
 
@@ -173,11 +216,15 @@ function createSvgElement({
 function setupSvgRenderer({
   el,
   paths,
+  enableBackdropBlur = false,
+  enableViewBox = false,
 }: {
   el: SVGSVGElement & {
     render?: () => void;
   };
   paths: Paths;
+  enableBackdropBlur?: boolean;
+  enableViewBox?: boolean;
 }) {
   const parentElement = findRelativeParent(el) ?? el;
   const parentWidth = () =>
@@ -194,6 +241,8 @@ function setupSvgRenderer({
       paths,
       width,
       height,
+      enableBackdropBlur,
+      enableViewBox,
     });
   };
 
