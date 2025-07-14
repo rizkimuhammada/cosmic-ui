@@ -33,14 +33,14 @@ function Main() {
               <a
                 className="pr-3 pl-3.5 py-0.5 border border-primary/20 bg-primary/10 flex items-center gap-2 text-sm"
                 target="_blank"
-                href="https://zagjs.com/components/react/switch"
+                href="https://ark-ui.com/docs/components/switch"
               >
                 Docs <MoveUpRight className="stroke-1 size-3" />
               </a>
               <a
                 className="pr-3 pl-3.5 py-0.5 border border-primary/20 bg-primary/10 flex items-center gap-2 text-sm"
                 target="_blank"
-                href="https://zagjs.com/components/react/switch#methods-and-properties"
+                href="https://ark-ui.com/docs/components/switch#api-reference"
               >
                 Api Reference <MoveUpRight className="stroke-1 size-3" />
               </a>
@@ -77,71 +77,49 @@ function Main() {
           <div id="installation">
             <SectionTitle>Installation</SectionTitle>
             <SectionContent>Install the following dependencies:</SectionContent>
-            <InstallPackage>add @zag-js/switch @zag-js/react</InstallPackage>
+            <InstallPackage>add @ark-ui/react</InstallPackage>
             <SectionContent>
               Copy and paste the following code into your project.
             </SectionContent>
             <PreviewCode title="components/ui/switch.tsx">
               {`
-import * as zagSwitch from "@zag-js/switch";
-import { type Props } from "@zag-js/switch";
-import { useMachine, normalizeProps } from "@zag-js/react";
-import { useId, createContext, useContext } from "react";
 import { Frame } from "@/components/ui/frame";
 import { twMerge } from "tailwind-merge";
+import {
+  Switch,
+  type SwitchControlProps,
+  type SwitchLabelProps,
+  type SwitchRootProps,
+  type SwitchThumbProps,
+} from "@ark-ui/react/switch";
 
-const SwitchContext = createContext<ReturnType<
-  typeof zagSwitch.connect
-> | null>(null);
-
-function useSwitch() {
-  const context = useContext(SwitchContext);
-  if (!context) {
-    throw new Error("useSwitch must be used within SwitchProvider");
-  }
-  return context;
-}
-
-function SwitchRoot({
-  className,
-  children,
-  id,
-  ...rest
-}: React.ComponentProps<"label"> & Omit<Props, "id">) {
-  const service = useMachine(zagSwitch.machine, { id: useId(), ...rest });
-  const api = zagSwitch.connect(service, normalizeProps);
-
+function SwitchRoot({ className, children, ...rest }: SwitchRootProps) {
   return (
-    <SwitchContext.Provider value={api}>
-      <label
-        className={twMerge(["flex items-center gap-4", className])}
-        {...api.getRootProps()}
-      >
-        {children}
-      </label>
-    </SwitchContext.Provider>
+    <Switch.Root
+      className={twMerge(["flex items-center gap-4", className])}
+      {...rest}
+    >
+      {children}
+    </Switch.Root>
   );
 }
 
 function SwitchHiddenInput() {
-  const api = useSwitch();
-  return <input {...api.getHiddenInputProps()} />;
+  return <Switch.HiddenInput />;
 }
 
-function SwitchControl({ className, children }: React.ComponentProps<"span">) {
-  const api = useSwitch();
+function SwitchControl({ className, children, ...rest }: SwitchControlProps) {
   return (
-    <span
+    <Switch.Control
       className={twMerge([
         "group relative w-14 h-6 flex items-center p-1 cursor-pointer",
         "[--color-frame-1-stroke:var(--color-primary)]/70",
         "[--color-frame-1-fill:var(--color-primary)]/10",
-        "[&.checked]:[--color-frame-1-stroke:var(--color-primary)]",
-        "[&.checked]:[--color-frame-1-fill:var(--color-primary)]/20",
-        api.checked && "checked",
+        "data-[state=checked]:[--color-frame-1-stroke:var(--color-primary)]",
+        "data-[state=checked]:[--color-frame-1-fill:var(--color-primary)]/20",
         className,
       ])}
-      {...api.getControlProps()}
+      {...rest}
     >
       <div className="absolute inset-0 z-[-1]">
         <Frame
@@ -151,40 +129,38 @@ function SwitchControl({ className, children }: React.ComponentProps<"span">) {
         />
       </div>
       {children}
-    </span>
+    </Switch.Control>
   );
 }
 
-function SwitchThumb({ className }: React.ComponentProps<"span">) {
-  const api = useSwitch();
+function SwitchThumb({ className, ...rest }: SwitchThumbProps) {
   return (
-    <span
+    <Switch.Thumb
       className={twMerge([
         "relative w-1/2 h-3.5 z-[-1] -mb-px transition-all ms-0.5",
         "[--color-frame-1-stroke:var(--color-primary)]/80",
         "[--color-frame-1-fill:var(--color-primary)]/20",
-        "group-[.checked]:[--color-frame-1-stroke:var(--color-primary)]",
-        "group-[.checked]:[--color-frame-1-fill:var(--color-primary)]/30",
-        "group-[.checked]:ms-[47%] group-[.checked]:drop-shadow-[0_0px_20px_var(--color-primary)]",
+        "group-data-[state=checked]:[--color-frame-1-stroke:var(--color-primary)]",
+        "group-data-[state=checked]:[--color-frame-1-fill:var(--color-primary)]/30",
+        "group-data-[state=checked]:ms-[47%] group-data-[state=checked]:drop-shadow-[0_0px_20px_var(--color-primary)]",
         className,
       ])}
-      {...api.getThumbProps()}
+      {...rest}
     >
       <Frame
         paths={JSON.parse(
           '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","7","0"],["L","100% + 0","0"],["L","100% + 0","100% + 0"],["L","0","100% + 0"],["L","0","0% + 7"],["L","7","0"]]}]'
         )}
       />
-    </span>
+    </Switch.Thumb>
   );
 }
 
-function SwitchLabel({ className, children }: React.ComponentProps<"span">) {
-  const api = useSwitch();
+function SwitchLabel({ className, children, ...rest }: SwitchLabelProps) {
   return (
-    <span className={className} {...api.getLabelProps()}>
+    <Switch.Label className={className} {...rest}>
       {children}
-    </span>
+    </Switch.Label>
   );
 }
 

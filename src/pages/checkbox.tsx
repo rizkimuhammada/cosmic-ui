@@ -32,14 +32,14 @@ function Main() {
               <a
                 className="pr-3 pl-3.5 py-0.5 border border-primary/20 bg-primary/10 flex items-center gap-2 text-sm"
                 target="_blank"
-                href="https://zagjs.com/components/react/checkbox"
+                href="https://ark-ui.com/docs/components/checkbox"
               >
                 Docs <MoveUpRight className="stroke-1 size-3" />
               </a>
               <a
                 className="pr-3 pl-3.5 py-0.5 border border-primary/20 bg-primary/10 flex items-center gap-2 text-sm"
                 target="_blank"
-                href="https://zagjs.com/components/react/checkbox#methods-and-properties"
+                href="https://ark-ui.com/docs/components/checkbox#api-reference"
               >
                 Api Reference <MoveUpRight className="stroke-1 size-3" />
               </a>
@@ -72,7 +72,7 @@ function Main() {
           <div id="installation">
             <SectionTitle>Installation</SectionTitle>
             <SectionContent>Install the following dependencies:</SectionContent>
-            <InstallPackage>add @zag-js/checkbox @zag-js/react</InstallPackage>
+            <InstallPackage>add @ark-ui/react</InstallPackage>
             <SectionContent>
               Copy and paste the following code into your project.
             </SectionContent>
@@ -80,70 +80,46 @@ function Main() {
               {`
 import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
-import * as checkbox from "@zag-js/checkbox";
-import { type Props } from "@zag-js/checkbox";
 import { Check } from "lucide-react";
-import { useMachine, normalizeProps } from "@zag-js/react";
-import { useId, createContext, useContext } from "react";
+import {
+  Checkbox,
+  type CheckboxControlProps,
+  type CheckboxLabelProps,
+  type CheckboxRootProps,
+} from "@ark-ui/react/checkbox";
 
-const CheckboxContext = createContext<ReturnType<
-  typeof checkbox.connect
-> | null>(null);
-
-function useCheckbox() {
-  const context = useContext(CheckboxContext);
-  if (!context) {
-    throw new Error("useCheckbox must be used within CheckboxProvider");
-  }
-  return context;
-}
-
-function CheckboxRoot({
-  children,
-  className,
-  id,
-  ...rest
-}: React.ComponentProps<"label"> & Omit<Props, "id">) {
-  const service = useMachine(checkbox.machine, { id: useId(), ...rest });
-  const api = checkbox.connect(service, normalizeProps);
-
+function CheckboxRoot({ children, className, ...rest }: CheckboxRootProps) {
   return (
-    <CheckboxContext.Provider value={api}>
-      <label
-        className={twMerge([
-          "flex gap-3.5 items-center cursor-pointer",
-          className,
-        ])}
-        {...api.getRootProps()}
-      >
-        {children}
-      </label>
-    </CheckboxContext.Provider>
-  );
-}
-
-function CheckboxLabel({ children, className }: React.ComponentProps<"span">) {
-  const api = useCheckbox();
-
-  return (
-    <span className={twMerge(["order-2", className])} {...api.getLabelProps()}>
+    <Checkbox.Root
+      className={twMerge([
+        "flex gap-3.5 items-center cursor-pointer",
+        className,
+      ])}
+      {...rest}
+    >
       {children}
-    </span>
+    </Checkbox.Root>
   );
 }
 
-function CheckboxControl({ className }: React.ComponentProps<"span">) {
-  const api = useCheckbox();
-
+function CheckboxLabel({ children, className, ...rest }: CheckboxLabelProps) {
   return (
-    <div
+    <Checkbox.Label className={twMerge(["order-2", className])} {...rest}>
+      {children}
+    </Checkbox.Label>
+  );
+}
+
+function CheckboxControl({ className, ...rest }: CheckboxControlProps) {
+  return (
+    <Checkbox.Control
       className={twMerge([
         "group relative size-5 flex items-center justify-center data-[state=checked]:drop-shadow-[0_0px_20px_var(--color-primary)]",
         "[--color-frame-1-stroke:var(--color-primary)]/80",
         "[--color-frame-1-fill:var(--color-primary)]/10",
         className,
       ])}
-      {...api.getControlProps()}
+      {...rest}
     >
       <Frame
         paths={JSON.parse(
@@ -151,14 +127,12 @@ function CheckboxControl({ className }: React.ComponentProps<"span">) {
         )}
       />
       <Check className="group-data-[state=checked]:opacity-100 opacity-0 size-6 -mt-1 -mr-2 stroke-(--color-primary)/80 drop-shadow-[0_0px_2px_var(--color-primary)] transition-all duration-100" />
-    </div>
+    </Checkbox.Control>
   );
 }
 
 function CheckboxHiddenInput() {
-  const api = useCheckbox();
-
-  return <input {...api.getHiddenInputProps()} />;
+  return <Checkbox.HiddenInput />;
 }
 
 export { CheckboxRoot, CheckboxLabel, CheckboxControl, CheckboxHiddenInput };

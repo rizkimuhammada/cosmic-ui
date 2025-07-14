@@ -1,106 +1,70 @@
 import { twMerge } from "tailwind-merge";
 import { Button } from "@/components/ui/button";
 import { Frame } from "@/components/ui/frame";
-import * as tabs from "@zag-js/tabs";
-import { type Props } from "@zag-js/tabs";
-import { useMachine, normalizeProps } from "@zag-js/react";
-import { useId, createContext, useContext } from "react";
+import {
+  Tabs,
+  type TabContentProps,
+  type TabListProps,
+  type TabsRootProps,
+  type TabTriggerProps,
+} from "@ark-ui/react/tabs";
 
-const TabsContext = createContext<ReturnType<typeof tabs.connect> | null>(null);
-
-function useTabs() {
-  const context = useContext(TabsContext);
-  if (!context) {
-    throw new Error("useTabs must be used within TabsProvider");
-  }
-  return context;
-}
-
-function TabsRoot({
-  children,
-  className,
-  onFocusChange,
-  id,
-  ...rest
-}: React.ComponentProps<"div"> & Omit<Props, "id">) {
-  const service = useMachine(tabs.machine, {
-    id: useId(),
-    ...rest,
-    onFocusChange: (e) => {
-      if (e.focusedValue) {
-        api.setValue(e.focusedValue);
-      }
-
-      onFocusChange && onFocusChange(e);
-    },
-  });
-  const api = tabs.connect(service, normalizeProps);
-
+function TabsRoot({ children, className, ...rest }: TabsRootProps) {
   return (
-    <TabsContext.Provider value={api}>
-      <div
-        className={twMerge(["flex flex-col gap-2", className])}
-        {...api.getRootProps()}
-        {...rest}
-      >
-        {children}
-      </div>
-    </TabsContext.Provider>
+    <Tabs.Root
+      className={twMerge(["flex flex-col gap-2", className])}
+      {...rest}
+    >
+      {children}
+    </Tabs.Root>
   );
 }
 
-function TabsList({ children, className }: React.ComponentProps<"div">) {
-  const api = useTabs();
-
+function TabsList({ children, className, ...rest }: TabListProps) {
   return (
-    <div className={twMerge(["px-6 flex", className])} {...api.getListProps()}>
+    <Tabs.List className={twMerge(["px-6 flex", className])} {...rest}>
       {children}
-    </div>
+    </Tabs.List>
   );
 }
 
 function TabsTrigger({
   children,
   className,
-  value,
-}: React.ComponentProps<"div"> & {
-  value: string;
-}) {
-  const api = useTabs();
-
+  asChild,
+  ...rest
+}: TabTriggerProps) {
   return (
-    <Button
-      className={twMerge([
-        "text-nowrap opacity-80 [&>div>svg]:hidden -mr-4",
-        "data-[selected]:text-shadow-lg text-shadow-primary",
-        "data-[selected]:opacity-100 data-[selected]:drop-shadow-[0_0px_20px_var(--color-primary)]",
-        "[&:first-of-type>div>svg:nth-child(1)]:block",
-        "[&:not(:first-of-type):not(:last-of-type)>div>svg:nth-child(2)]:block",
-        "[&:last-of-type>div>svg:nth-child(3)]:block",
-        className,
-      ])}
-      customPaths={[
-        '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","18","0"],["L","100% + 0","0"],["L","100% - 22","100% - 5.5"],["L","4","100% - 5.5"],["L","0","100% - 15.5"],["L","18","0"]]},{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-2-stroke)","fill":"var(--color-frame-2-fill)"},"path":[["M","10","100% - 6"],["L","100% - 28","100% - 6"],["L","100% - 31","100% + 0"],["L","12","100% + 0"],["L","10","100% - 6"]]}]',
-        '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","22","0"],["L","100% + 0","0"],["L","100% - 22","100% - 5.5"],["L","0","100% - 5.5"],["L","22","0"]]},{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-2-stroke)","fill":"var(--color-frame-2-fill)"},"path":[["M","8","100% - 6"],["L","100% - 26","100% - 6"],["L","100% - 29","100% - 0"],["L","5","100% - 0"],["L","8","100% - 6"]]}]',
-        '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","22","0"],["L","100% - 6","0"],["L","100% - 0","10"],["L","100% - 16","100% - 5.5"],["L","0","100% - 5.5"],["L","22","0"]]},{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-2-stroke)","fill":"var(--color-frame-2-fill)"},"path":[["M","7","100% - 6"],["L","100% - 21","100% - 6"],["L","100% - 24","100% - 0"],["L","3","100% - 0"],["L","7","100% - 6"]]}]',
-      ]}
-      {...api.getTriggerProps({ value })}
-    >
-      {children}
-    </Button>
+    <Tabs.Trigger asChild {...rest}>
+      {!asChild ? (
+        <Button
+          className={twMerge([
+            "text-nowrap opacity-80 [&>div>svg]:hidden -mr-4",
+            "data-[selected]:text-shadow-lg text-shadow-primary",
+            "data-[selected]:opacity-100 data-[selected]:drop-shadow-[0_0px_20px_var(--color-primary)]",
+            "[&:first-of-type>div>svg:nth-child(1)]:block",
+            "[&:not(:first-of-type):not(:last-of-type)>div>svg:nth-child(2)]:block",
+            "[&:last-of-type>div>svg:nth-child(3)]:block",
+            className,
+          ])}
+          customPaths={[
+            '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","18","0"],["L","100% + 0","0"],["L","100% - 22","100% - 5.5"],["L","4","100% - 5.5"],["L","0","100% - 15.5"],["L","18","0"]]},{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-2-stroke)","fill":"var(--color-frame-2-fill)"},"path":[["M","10","100% - 6"],["L","100% - 28","100% - 6"],["L","100% - 31","100% + 0"],["L","12","100% + 0"],["L","10","100% - 6"]]}]',
+            '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","22","0"],["L","100% + 0","0"],["L","100% - 22","100% - 5.5"],["L","0","100% - 5.5"],["L","22","0"]]},{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-2-stroke)","fill":"var(--color-frame-2-fill)"},"path":[["M","8","100% - 6"],["L","100% - 26","100% - 6"],["L","100% - 29","100% - 0"],["L","5","100% - 0"],["L","8","100% - 6"]]}]',
+            '[{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-1-stroke)","fill":"var(--color-frame-1-fill)"},"path":[["M","22","0"],["L","100% - 6","0"],["L","100% - 0","10"],["L","100% - 16","100% - 5.5"],["L","0","100% - 5.5"],["L","22","0"]]},{"show":true,"style":{"strokeWidth":"1","stroke":"var(--color-frame-2-stroke)","fill":"var(--color-frame-2-fill)"},"path":[["M","7","100% - 6"],["L","100% - 21","100% - 6"],["L","100% - 24","100% - 0"],["L","3","100% - 0"],["L","7","100% - 6"]]}]',
+          ]}
+        >
+          {children}
+        </Button>
+      ) : (
+        children
+      )}
+    </Tabs.Trigger>
   );
 }
 
-function TabsContent({
-  children,
-  className,
-  value,
-}: React.ComponentProps<"div"> & {
-  value: string;
-}) {
-  const api = useTabs();
+function TabsContent({ children, className, ...rest }: TabContentProps) {
   return (
-    <div
+    <Tabs.Content
       className={twMerge([
         "relative px-10 pt-5 pb-10 min-h-50 w-full data-[selected]:animate-in data-[selected]:fade-in-0 data-[selected]:zoom-in-80 data-[selected]:duration-500",
         "[--color-frame-1-stroke:var(--color-primary)]",
@@ -109,7 +73,7 @@ function TabsContent({
         "[--color-frame-2-fill:transparent]",
         className,
       ])}
-      {...api.getContentProps({ value })}
+      {...rest}
     >
       <Frame
         paths={JSON.parse(
@@ -119,7 +83,7 @@ function TabsContent({
       <div className="relative">
         <p>{children}</p>
       </div>
-    </div>
+    </Tabs.Content>
   );
 }
 export { TabsRoot, TabsList, TabsTrigger, TabsContent };

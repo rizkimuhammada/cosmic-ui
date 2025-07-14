@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ark-ui/react": "^5.16.1",
     "@left4code/svg-renderer": "^1.0.0",
     "@sethwebster/react-fps-counter": "^0.0.19",
     "@tailwindcss/vite": "^4.1.10",

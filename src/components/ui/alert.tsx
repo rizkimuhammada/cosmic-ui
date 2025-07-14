@@ -2,32 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Frame } from "@/components/ui/frame";
 import { X } from "lucide-react";
 import { twMerge } from "tailwind-merge";
-import * as presence from "@zag-js/presence";
-import { useMachine, normalizeProps } from "@zag-js/react";
-import { useState, useContext, createContext, useRef } from "react";
+import { useState, useContext, createContext } from "react";
+import { Presence, type PresenceProps } from "@ark-ui/react/presence";
 
 const PresentContext = createContext<{
   present: boolean;
   setPresent: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
-function AlertRoot({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<"div">) {
-  const alertRef = useRef<HTMLDivElement>(null);
+function AlertRoot({ className, children, ...rest }: PresenceProps) {
   const [present, setPresent] = useState(true);
-  const service = useMachine(presence.machine, {
-    present,
-    onExitComplete: () => {
-      setTimeout(() => {
-        alertRef.current?.setAttribute("hidden", "true");
-      }, 200);
-    },
-  });
-
-  const api = presence.connect(service, normalizeProps);
 
   return (
     <PresentContext.Provider
@@ -36,7 +20,8 @@ function AlertRoot({
         setPresent,
       }}
     >
-      <div
+      <Presence
+        present={present}
         className={twMerge([
           "relative px-10 pt-8 pb-6.5 w-full [&>svg]:drop-shadow-[0_0px_20px_var(--color-primary)]",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:duration-200",
@@ -48,9 +33,7 @@ function AlertRoot({
           "[--color-frame-3-fill:var(--color-accent)]/50",
           className,
         ])}
-        ref={alertRef}
-        data-state={api.skip ? undefined : present ? "open" : "closed"}
-        {...props}
+        {...rest}
       >
         <Frame
           paths={JSON.parse(
@@ -58,7 +41,7 @@ function AlertRoot({
           )}
         />
         {children}
-      </div>
+      </Presence>
     </PresentContext.Provider>
   );
 }
@@ -69,17 +52,15 @@ function AlertTitle({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <h3>
-      <div
-        className={twMerge([
-          "flex items-center text-shadow-lg text-shadow-primary font-bold w-full relative",
-          className,
-        ])}
-        {...props}
-      >
-        {children}
-      </div>
-    </h3>
+    <div
+      className={twMerge([
+        "flex items-center text-shadow-lg text-shadow-primary font-bold w-full relative",
+        className,
+      ])}
+      {...props}
+    >
+      {children}
+    </div>
   );
 }
 

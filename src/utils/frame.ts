@@ -259,66 +259,60 @@ function setupSvgRenderer({
   observer.observe(el);
 
   // Handle transitionstart → re-render until transition ends
-  parentElement.addEventListener(
-    "transitionstart",
-    () => {
-      let running = true;
+  parentElement.addEventListener("transitionstart", () => {
+    console.log("run");
+    let running = true;
 
-      function loop() {
-        if (!running) return;
-        render();
+    function loop() {
+      if (!running) return;
+      render();
 
-        requestAnimationFrame(loop);
-      }
+      requestAnimationFrame(loop);
+    }
 
-      loop();
+    loop();
 
-      parentElement.addEventListener(
-        "transitionend",
-        () => {
-          if (
-            parentWidth().toString() == el.getAttribute("data-width") &&
-            parentHeight().toString() == el.getAttribute("data-height")
-          ) {
-            running = false;
-          }
-        },
-        { once: true }
-      );
-    },
-    { once: true }
-  );
+    parentElement.addEventListener(
+      "transitionend",
+      () => {
+        if (
+          parentWidth().toString() == el.getAttribute("data-width") &&
+          parentHeight().toString() == el.getAttribute("data-height")
+        ) {
+          running = false;
+          console.log("stop");
+        }
+      },
+      { once: true }
+    );
+  });
 
   // Handle animationstart → re-render until animation ends
-  parentElement.addEventListener(
-    "animationstart",
-    () => {
-      let running = true;
+  parentElement.addEventListener("animationstart", () => {
+    let running = true;
 
-      function loop() {
-        if (!running) return;
-        render();
+    function loop() {
+      if (!running) return;
+      render();
 
-        requestAnimationFrame(loop);
-      }
+      requestAnimationFrame(loop);
+    }
 
-      loop();
+    loop();
 
-      parentElement.addEventListener(
-        "animationend",
-        () => {
-          if (
-            parentWidth().toString() == el.getAttribute("data-width") &&
-            parentHeight().toString() == el.getAttribute("data-height")
-          ) {
-            running = false;
-          }
-        },
-        { once: true }
-      );
-    },
-    { once: true }
-  );
+    parentElement.addEventListener(
+      "animationend",
+      () => {
+        if (
+          parentWidth().toString() == el.getAttribute("data-width") &&
+          parentHeight().toString() == el.getAttribute("data-height")
+        ) {
+          running = false;
+        }
+      },
+      { once: true }
+    );
+  });
 
   return {
     /**

@@ -2,97 +2,39 @@ import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import * as dialog from "@zag-js/dialog";
-import { type Props } from "@zag-js/dialog";
-import { useMachine, normalizeProps, Portal } from "@zag-js/react";
-import { cloneElement, useId, createContext, useContext } from "react";
+import {
+  Dialog,
+  type DialogBackdropProps,
+  type DialogCloseTriggerProps,
+  type DialogContentProps,
+  type DialogDescriptionProps,
+  type DialogPositionerProps,
+  type DialogRootProps,
+  type DialogTitleProps,
+  type DialogTriggerProps,
+} from "@ark-ui/react/dialog";
+import { Portal } from "@ark-ui/react/portal";
 
-const DialogContext = createContext<ReturnType<typeof dialog.connect> | null>(
-  null
-);
-
-function useDialog() {
-  const context = useContext(DialogContext);
-  if (!context) {
-    throw new Error("useDialog must be used within DialogProvider");
-  }
-  return context;
+function DialogRoot({ children, ...rest }: DialogRootProps) {
+  return <Dialog.Root {...rest}>{children}</Dialog.Root>;
 }
 
-function DialogRoot({
-  children,
-  className,
-  onOpenChange,
-  id,
-  ...rest
-}: React.ComponentProps<"div"> & Omit<Props, "id">) {
-  const service = useMachine(dialog.machine, {
-    id: useId(),
-    ...rest,
-    onOpenChange(details) {
-      const id = api.getContentProps().id;
-      if (!details.open) {
-        setTimeout(() => {
-          id && document.getElementById(id)?.setAttribute("hidden", "true");
-        }, 350);
-      } else {
-        setTimeout(() => {
-          id && document.getElementById(id)?.removeAttribute("hidden");
-        });
-      }
-
-      onOpenChange && onOpenChange(details);
-    },
-  });
-  const api = dialog.connect(service, normalizeProps);
-
+function DialogTrigger({ children, className, ...rest }: DialogTriggerProps) {
   return (
-    <DialogContext.Provider value={api}>{children}</DialogContext.Provider>
+    <Dialog.Trigger asChild {...rest}>
+      <Button className={className}>{children}</Button>
+    </Dialog.Trigger>
   );
 }
 
-function DialogTrigger({
-  children,
-  className,
-  asChild,
-  ...rest
-}: React.ComponentProps<"div"> &
-  (
-    | {
-        asChild?: false;
-        children?: React.ReactNode;
-      }
-    | {
-        asChild: true;
-        children: React.ReactElement;
-      }
-  )) {
-  const api = useDialog();
-
-  if (asChild && children) {
-    return cloneElement(children, {
-      ...{ ...api.getTriggerProps() },
-      ...rest,
-    });
-  }
-
+function DialogBackdrop({ className, ...rest }: DialogBackdropProps) {
   return (
-    <Button {...api.getTriggerProps()} className={className}>
-      {children}
-    </Button>
-  );
-}
-
-function DialogBackdrop({ className }: React.ComponentProps<"div">) {
-  const api = useDialog();
-
-  return (
-    <div
+    <Dialog.Backdrop
       className={twMerge([
         "fixed inset-0 bg-background/80 z-50 [&[data-state='open']]:animate-in [&[data-state='open']]:fade-in-0 [&[data-state='closed']]:animate-out [&[data-state='closed']]:fade-out-0",
         className,
       ])}
-      {...api.getBackdropProps()}
+      {...rest}
     />
   );
 }
@@ -100,21 +42,18 @@ function DialogBackdrop({ className }: React.ComponentProps<"div">) {
 function DialogPositioner({
   children,
   className,
-}: React.ComponentProps<"div">) {
-  const api = useDialog();
-
+  ...rest
+}: DialogPositionerProps) {
   return (
-    <div {...api.getPositionerProps()} className={className}>
+    <Dialog.Positioner className={className} {...rest}>
       {children}
-    </div>
+    </Dialog.Positioner>
   );
 }
 
-function DialogContent({ children, className }: React.ComponentProps<"div">) {
-  const api = useDialog();
-
+function DialogContent({ children, className, ...rest }: DialogContentProps) {
   return (
-    <div
+    <Dialog.Content
       className={twMerge([
         "outline-none backdrop-blur-sm fixed top-[50%] left-[50%] z-50 w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] sm:max-w-lg pb-14 pt-11 px-14",
         "[&[data-state='open']]:animate-in [&[data-state='open']]:fade-in-0 [&[data-state='open']]:zoom-in-80 [&[data-state='open']]:duration-250",
@@ -131,8 +70,7 @@ function DialogContent({ children, className }: React.ComponentProps<"div">) {
         "[--color-frame-5-fill:transparent]",
         className,
       ])}
-      {...api.getContentProps()}
-      hidden
+      {...rest}
     >
       <Frame
         className="drop-shadow-2xl drop-shadow-primary/50"
@@ -141,39 +79,36 @@ function DialogContent({ children, className }: React.ComponentProps<"div">) {
         )}
       />
       {children}
-    </div>
+    </Dialog.Content>
   );
 }
 
-function DialogTitle({ children, className }: React.ComponentProps<"div">) {
-  const api = useDialog();
-
+function DialogTitle({ children, className, ...rest }: DialogTitleProps) {
   return (
-    <h2
+    <Dialog.Title
       className={twMerge([
         "font-medium text-shadow-lg text-shadow-primary font-bold text-lg relative",
         className,
       ])}
-      {...api.getTitleProps()}
+      {...rest}
     >
       {children}
-    </h2>
+    </Dialog.Title>
   );
 }
 
 function DialogDescription({
   children,
   className,
-}: React.ComponentProps<"div">) {
-  const api = useDialog();
-
+  ...rest
+}: DialogDescriptionProps) {
   return (
-    <p
+    <Dialog.Description
       className={twMerge(["opacity-80 py-2 relative", className])}
-      {...api.getDescriptionProps()}
+      {...rest}
     >
       {children}
-    </p>
+    </Dialog.Description>
   );
 }
 
@@ -182,39 +117,26 @@ function DialogCloseTrigger({
   className,
   asChild,
   ...rest
-}: React.ComponentProps<"button"> &
-  (
-    | {
-        asChild?: false;
-        children?: React.ReactNode;
-      }
-    | {
-        asChild: true;
-        children: React.ReactElement;
-      }
-  )) {
-  const api = useDialog();
-
-  if (asChild && children) {
-    return cloneElement(children, {
-      ...{ ...api.getCloseTriggerProps() },
-      ...rest,
-    });
-  }
-
+}: DialogCloseTriggerProps) {
   return (
-    <Button
-      shape="flat"
-      className={twMerge([
-        "absolute right-0 top-0 px-5 py-1.5 transform scale-x-[-1] drop-shadow-[0_0px_20px_var(--color-accent)]",
-        "[--color-frame-1-stroke:var(--color-accent)]",
-        "[--color-frame-1-fill:var(--color-accent)]/50",
-        className,
-      ])}
-      {...api.getCloseTriggerProps()}
-    >
-      <X className="size-4" />
-    </Button>
+    <Dialog.CloseTrigger asChild {...rest}>
+      {!asChild ? (
+        <Button
+          shape="flat"
+          className={twMerge([
+            "absolute right-0 top-0 px-5 py-1.5 transform scale-x-[-1] drop-shadow-[0_0px_20px_var(--color-accent)]",
+            "[--color-frame-1-stroke:var(--color-accent)]",
+            "[--color-frame-1-fill:var(--color-accent)]/50",
+            className,
+          ])}
+          {...rest}
+        >
+          <X className="size-4" />
+        </Button>
+      ) : (
+        children
+      )}
+    </Dialog.CloseTrigger>
   );
 }
 

@@ -41,14 +41,14 @@ function Main() {
               <a
                 className="pr-3 pl-3.5 py-0.5 border border-primary/20 bg-primary/10 flex items-center gap-2 text-sm"
                 target="_blank"
-                href="https://zagjs.com/components/react/radio-group"
+                href="https://ark-ui.com/docs/components/radio-group"
               >
                 Docs <MoveUpRight className="stroke-1 size-3" />
               </a>
               <a
                 className="pr-3 pl-3.5 py-0.5 border border-primary/20 bg-primary/10 flex items-center gap-2 text-sm"
                 target="_blank"
-                href="https://zagjs.com/components/react/radio-group#methods-and-properties"
+                href="https://ark-ui.com/docs/components/radio-group#api-reference"
               >
                 Api Reference <MoveUpRight className="stroke-1 size-3" />
               </a>
@@ -66,7 +66,6 @@ function Main() {
                           <RadioItemControl />
                         </RadioGroupItem>
                       ))}
-                      <RadioItemHiddenInput />
                     </RadioGroupRoot>
                   </>
                 ),
@@ -82,7 +81,6 @@ function Main() {
       <RadioItemControl />
     </RadioGroupItem>
   ))}
-  <RadioItemHiddenInput />
 </RadioGroupRoot>
                 `}
                   </PreviewCode>
@@ -93,9 +91,7 @@ function Main() {
           <div id="installation">
             <SectionTitle>Installation</SectionTitle>
             <SectionContent>Install the following dependencies:</SectionContent>
-            <InstallPackage>
-              add @zag-js/radio-group @zag-js/react
-            </InstallPackage>
+            <InstallPackage>add @ark-ui/react</InstallPackage>
             <SectionContent>
               Copy and paste the following code into your project.
             </SectionContent>
@@ -103,121 +99,78 @@ function Main() {
               {`
 import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
-import * as radio from "@zag-js/radio-group";
-import { type Props } from "@zag-js/radio-group";
-import { useMachine, normalizeProps } from "@zag-js/react";
-import { useId, createContext, useContext } from "react";
+import {
+  RadioGroup,
+  type RadioGroupItemControlProps,
+  type RadioGroupItemProps,
+  type RadioGroupItemTextProps,
+  type RadioGroupLabelProps,
+  type RadioGroupRootProps,
+} from "@ark-ui/react/radio-group";
 
-const RadioGroupContext = createContext<ReturnType<
-  typeof radio.connect
-> | null>(null);
-const RadioGroupValueContext = createContext<{
-  value: string;
-}>({
-  value: "",
-});
-
-function useRadio() {
-  const context = useContext(RadioGroupContext);
-  if (!context) {
-    throw new Error("useRadio must be used within RadioProvider");
-  }
-  return context;
+function RadioGroupRoot({ children, className, ...rest }: RadioGroupRootProps) {
+  return (
+    <RadioGroup.Root
+      className={twMerge(["flex flex-col gap-3", className])}
+      {...rest}
+    >
+      {children}
+    </RadioGroup.Root>
+  );
 }
 
-function RadioGroupRoot({
+function RadioGroupLabel({
   children,
   className,
-  id,
   ...rest
-}: React.ComponentProps<"div"> & Omit<Props, "id">) {
-  const service = useMachine(radio.machine, { id: useId(), ...rest });
-  const api = radio.connect(service, normalizeProps);
-
+}: RadioGroupLabelProps) {
   return (
-    <RadioGroupContext.Provider value={api}>
-      <div
-        className={twMerge(["flex flex-col gap-3", className])}
-        {...api.getRootProps()}
-      >
-        {children}
-      </div>
-    </RadioGroupContext.Provider>
-  );
-}
-
-function RadioGroupLabel({ children, className }: React.ComponentProps<"h3">) {
-  const api = useRadio();
-
-  return (
-    <h3 className={twMerge(["font-bold", className])} {...api.getLabelProps()}>
+    <RadioGroup.Label className={twMerge(["font-bold", className])} {...rest}>
       {children}
-    </h3>
+    </RadioGroup.Label>
   );
 }
 
-function RadioGroupItem({
+function RadioGroupItem({ children, className, ...rest }: RadioGroupItemProps) {
+  return (
+    <RadioGroup.Item
+      className={twMerge([
+        "flex gap-3.5 items-center cursor-pointer",
+        className,
+      ])}
+      {...rest}
+    >
+      {children}
+    </RadioGroup.Item>
+  );
+}
+
+function RadioItemText({
   children,
   className,
-  value,
-}: React.ComponentProps<"div"> & {
-  value: string;
-}) {
-  const api = useRadio();
-
+  ...rest
+}: RadioGroupItemTextProps) {
   return (
-    <RadioGroupValueContext.Provider
-      value={{
-        value,
-      }}
-    >
-      <label
-        className={twMerge([
-          "flex gap-3.5 items-center cursor-pointer",
-          className,
-        ])}
-        {...api.getItemProps({ value })}
-      >
-        {children}
-      </label>
-    </RadioGroupValueContext.Provider>
-  );
-}
-
-function RadioItemText({ children, className }: React.ComponentProps<"div">) {
-  const api = useRadio();
-  const context = useContext(RadioGroupValueContext);
-
-  return (
-    <span
-      className={twMerge(["order-2", className])}
-      {...api.getItemTextProps({ value: context.value })}
-    >
+    <RadioGroup.ItemText className={twMerge(["order-2", className])} {...rest}>
       {children}
-    </span>
+    </RadioGroup.ItemText>
   );
 }
 
 function RadioItemHiddenInput() {
-  const api = useRadio();
-  const context = useContext(RadioGroupValueContext);
-
-  return <input {...api.getItemHiddenInputProps({ value: context.value })} />;
+  return <RadioGroup.ItemHiddenInput />;
 }
 
-function RadioItemControl({ className }: React.ComponentProps<"div">) {
-  const api = useRadio();
-  const context = useContext(RadioGroupValueContext);
-
+function RadioItemControl({ className, ...rest }: RadioGroupItemControlProps) {
   return (
-    <div
+    <RadioGroup.ItemControl
       className={twMerge([
         "group relative size-5 flex items-center justify-center data-[state=checked]:drop-shadow-[0_0px_20px_var(--color-primary)]",
         "[--color-frame-1-stroke:var(--color-primary)]/70",
         "[--color-frame-1-fill:var(--color-primary)]/10",
         className,
       ])}
-      {...api.getItemControlProps({ value: context.value })}
+      {...rest}
     >
       <Frame
         paths={JSON.parse(
@@ -237,7 +190,7 @@ function RadioItemControl({ className }: React.ComponentProps<"div">) {
           )}
         />
       </div>
-    </div>
+    </RadioGroup.ItemControl>
   );
 }
 
