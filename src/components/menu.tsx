@@ -223,6 +223,21 @@ function Main() {
         >
           Chart
         </NavLink>
+        <NavLink
+          onClick={() => setShowMenu(false)}
+          to="/docs/combobox"
+          className={({ isActive }) =>
+            twMerge([
+              "hover:text-foreground py-1",
+              isActive && "text-foreground",
+            ])
+          }
+        >
+          Combobox{" "}
+          <span className="px-2 py-px border border-primary/30 bg-primary/10 text-sm ms-2">
+            New
+          </span>
+        </NavLink>
       </div>
     </div>
   );

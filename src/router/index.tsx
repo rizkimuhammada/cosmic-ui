@@ -18,6 +18,7 @@ import Chart from "../pages/chart";
 import Frame from "../pages/frame";
 import Colors from "../pages/colors";
 import Toast from "../pages/toast";
+import Combobox from "../pages/combobox";
 import App from "../App.tsx";
 
 function Router() {
@@ -101,6 +102,10 @@ function Router() {
             {
               path: "toast",
               element: <Toast />,
+            },
+            {
+              path: "combobox",
+              element: <Combobox />,
             },
           ],
         },
