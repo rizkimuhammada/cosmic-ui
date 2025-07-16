@@ -1,14 +1,12 @@
 import { Frame } from "@/components/ui/frame";
 import { twMerge } from "tailwind-merge";
-import {
-  Switch,
-  type SwitchControlProps,
-  type SwitchLabelProps,
-  type SwitchRootProps,
-  type SwitchThumbProps,
-} from "@ark-ui/react/switch";
+import { Switch } from "@ark-ui/react/switch";
 
-function SwitchRoot({ className, children, ...rest }: SwitchRootProps) {
+function SwitchRoot({
+  className,
+  children,
+  ...rest
+}: React.ComponentProps<typeof Switch.Root>) {
   return (
     <Switch.Root
       className={twMerge(["flex items-center gap-4", className])}
@@ -23,7 +21,11 @@ function SwitchHiddenInput() {
   return <Switch.HiddenInput />;
 }
 
-function SwitchControl({ className, children, ...rest }: SwitchControlProps) {
+function SwitchControl({
+  className,
+  children,
+  ...rest
+}: React.ComponentProps<typeof Switch.Control>) {
   return (
     <Switch.Control
       className={twMerge([
@@ -48,7 +50,10 @@ function SwitchControl({ className, children, ...rest }: SwitchControlProps) {
   );
 }
 
-function SwitchThumb({ className, ...rest }: SwitchThumbProps) {
+function SwitchThumb({
+  className,
+  ...rest
+}: React.ComponentProps<typeof Switch.Thumb>) {
   return (
     <Switch.Thumb
       className={twMerge([
@@ -71,7 +76,11 @@ function SwitchThumb({ className, ...rest }: SwitchThumbProps) {
   );
 }
 
-function SwitchLabel({ className, children, ...rest }: SwitchLabelProps) {
+function SwitchLabel({
+  className,
+  children,
+  ...rest
+}: React.ComponentProps<typeof Switch.Label>) {
   return (
     <Switch.Label className={className} {...rest}>
       {children}
