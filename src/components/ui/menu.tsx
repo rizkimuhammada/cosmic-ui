@@ -2,17 +2,13 @@ import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import {
-  Menu,
-  type MenuContentProps,
-  type MenuItemProps,
-  type MenuPositionerProps,
-  type MenuRootProps,
-  type MenuTriggerProps,
-} from "@ark-ui/react/menu";
+import { Menu } from "@ark-ui/react/menu";
 import { Portal } from "@ark-ui/react/portal";
 
-function MenuRoot({ children, ...rest }: MenuRootProps) {
+function MenuRoot({
+  children,
+  ...rest
+}: React.ComponentProps<typeof Menu.Root>) {
   return <Menu.Root {...rest}>{children}</Menu.Root>;
 }
 
@@ -21,7 +17,7 @@ function MenuTrigger({
   className,
   asChild,
   ...rest
-}: MenuTriggerProps) {
+}: React.ComponentProps<typeof Menu.Trigger>) {
   return (
     <Menu.Trigger asChild {...rest}>
       {!asChild ? (
@@ -43,7 +39,11 @@ function MenuTrigger({
   );
 }
 
-function MenuPositioner({ children, className, ...rest }: MenuPositionerProps) {
+function MenuPositioner({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Menu.Positioner>) {
   return (
     <Portal>
       <Menu.Positioner className={className} {...rest}>
@@ -53,7 +53,11 @@ function MenuPositioner({ children, className, ...rest }: MenuPositionerProps) {
   );
 }
 
-function MenuContent({ children, className, ...rest }: MenuContentProps) {
+function MenuContent({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Menu.Content>) {
   return (
     <Menu.Content
       className={twMerge([
@@ -85,7 +89,12 @@ function MenuContent({ children, className, ...rest }: MenuContentProps) {
   );
 }
 
-function MenuItem({ children, className, asChild, ...rest }: MenuItemProps) {
+function MenuItem({
+  children,
+  className,
+  asChild,
+  ...rest
+}: React.ComponentProps<typeof Menu.Item>) {
   return (
     <Menu.Item asChild {...rest}>
       {!asChild ? (
