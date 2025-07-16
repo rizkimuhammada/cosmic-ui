@@ -2,19 +2,13 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { Frame } from "@/components/ui/frame";
 import { twMerge } from "tailwind-merge";
-import {
-  Toast,
-  Toaster,
-  createToaster,
-  type ToastCloseTriggerProps,
-  type ToastDescriptionProps,
-  type ToastRootProps,
-  type ToastTitleProps,
-  type ToasterProps,
-} from "@ark-ui/react/toast";
+import { Toast, Toaster, createToaster } from "@ark-ui/react/toast";
 import { Portal } from "@ark-ui/react/portal";
 
-function ToasterRoot({ toaster, children }: ToasterProps) {
+function ToasterRoot({
+  toaster,
+  children,
+}: React.ComponentProps<typeof Toaster>) {
   return (
     <Portal>
       <Toaster toaster={toaster}>{children}</Toaster>
@@ -22,7 +16,10 @@ function ToasterRoot({ toaster, children }: ToasterProps) {
   );
 }
 
-function ToastRoot({ children, className }: ToastRootProps) {
+function ToastRoot({
+  children,
+  className,
+}: React.ComponentProps<typeof Toast.Root>) {
   return (
     <Toast.Root
       className={twMerge([
@@ -56,7 +53,11 @@ function ToastRoot({ children, className }: ToastRootProps) {
   );
 }
 
-function ToastTitle({ children, className, ...rest }: ToastTitleProps) {
+function ToastTitle({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Toast.Title>) {
   return (
     <Toast.Title
       className={twMerge([
@@ -74,7 +75,7 @@ function ToastDescription({
   children,
   className,
   ...rest
-}: ToastDescriptionProps) {
+}: React.ComponentProps<typeof Toast.Description>) {
   return (
     <Toast.Description
       className={twMerge(["relative pt-2 opacity-80 text-nowrap", className])}
@@ -90,7 +91,7 @@ function ToastCloseTrigger({
   children,
   asChild,
   ...rest
-}: ToastCloseTriggerProps) {
+}: React.ComponentProps<typeof Toast.CloseTrigger>) {
   return (
     <Toast.CloseTrigger asChild {...rest}>
       {!asChild ? (
