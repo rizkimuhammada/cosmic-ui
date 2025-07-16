@@ -99,16 +99,13 @@ function Main() {
               {`
 import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
-import {
-  RadioGroup,
-  type RadioGroupItemControlProps,
-  type RadioGroupItemProps,
-  type RadioGroupItemTextProps,
-  type RadioGroupLabelProps,
-  type RadioGroupRootProps,
-} from "@ark-ui/react/radio-group";
+import { RadioGroup } from "@ark-ui/react/radio-group";
 
-function RadioGroupRoot({ children, className, ...rest }: RadioGroupRootProps) {
+function RadioGroupRoot({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof RadioGroup.Root>) {
   return (
     <RadioGroup.Root
       className={twMerge(["flex flex-col gap-3", className])}
@@ -123,7 +120,7 @@ function RadioGroupLabel({
   children,
   className,
   ...rest
-}: RadioGroupLabelProps) {
+}: React.ComponentProps<typeof RadioGroup.Label>) {
   return (
     <RadioGroup.Label className={twMerge(["font-bold", className])} {...rest}>
       {children}
@@ -131,7 +128,11 @@ function RadioGroupLabel({
   );
 }
 
-function RadioGroupItem({ children, className, ...rest }: RadioGroupItemProps) {
+function RadioGroupItem({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof RadioGroup.Item>) {
   return (
     <RadioGroup.Item
       className={twMerge([
@@ -149,7 +150,7 @@ function RadioItemText({
   children,
   className,
   ...rest
-}: RadioGroupItemTextProps) {
+}: React.ComponentProps<typeof RadioGroup.ItemText>) {
   return (
     <RadioGroup.ItemText className={twMerge(["order-2", className])} {...rest}>
       {children}
@@ -161,7 +162,10 @@ function RadioItemHiddenInput() {
   return <RadioGroup.ItemHiddenInput />;
 }
 
-function RadioItemControl({ className, ...rest }: RadioGroupItemControlProps) {
+function RadioItemControl({
+  className,
+  ...rest
+}: React.ComponentProps<typeof RadioGroup.ItemControl>) {
   return (
     <RadioGroup.ItemControl
       className={twMerge([
