@@ -75,7 +75,7 @@ function Main() {
                       onValueChange={(details) => setState(details.value)}
                     >
                       <ComboboxControl>
-                        <ComboboxTrigger value={state} />
+                        <ComboboxTrigger />
                       </ComboboxControl>
                       <ComboboxPositioner>
                         <ComboboxContent>
@@ -149,26 +149,24 @@ const handleInputChange = (details: Combobox.InputValueChangeDetails) => {
 import { twMerge } from "tailwind-merge";
 import { Button } from "@/components/ui/button";
 import { Frame } from "@/components/ui/frame";
-import {
-  Combobox,
-  type ComboboxRootProps,
-  type ComboboxControlProps,
-  type ComboboxTriggerProps,
-  type ComboboxPositionerProps,
-  type ComboboxContentProps,
-  type ComboboxItemGroupProps,
-  type ComboboxItemProps,
-  type ComboboxItemTextProps,
-  type ComboboxItemIndicatorProps,
-} from "@ark-ui/react/combobox";
-import { ChevronsUpDown, Search, Check } from "lucide-react";
+import { Combobox } from "@ark-ui/react/combobox";
 import { Portal } from "@ark-ui/react/portal";
+import { ChevronsUpDown, Search, Check } from "lucide-react";
+import { createContext, useContext } from "react";
 
-function ComboboxRoot({ children, ...rest }: ComboboxRootProps<string>) {
+const ValueContext = createContext<string[] | undefined>(undefined);
+
+function ComboboxRoot({
+  children,
+  value,
+  ...rest
+}: React.ComponentProps<typeof Combobox.Root<string>>) {
   return (
-    <Combobox.Root selectionBehavior="clear" {...rest}>
-      {children}
-    </Combobox.Root>
+    <ValueContext.Provider value={value}>
+      <Combobox.Root selectionBehavior="clear" {...rest}>
+        {children}
+      </Combobox.Root>
+    </ValueContext.Provider>
   );
 }
 
@@ -176,7 +174,7 @@ function ComboboxControl({
   children,
   className,
   ...rest
-}: ComboboxControlProps) {
+}: React.ComponentProps<typeof Combobox.Control>) {
   return (
     <Combobox.Control className={twMerge(["relative", className])} {...rest}>
       {children}
@@ -187,15 +185,14 @@ function ComboboxControl({
 function ComboboxTrigger({
   children,
   className,
-  value,
   ...rest
-}: ComboboxTriggerProps & {
-  value: string[];
-}) {
+}: React.ComponentProps<typeof Combobox.Trigger>) {
+  const value = useContext(ValueContext);
+
   return (
     <Combobox.Trigger asChild {...rest}>
       <Button className="w-full min-w-55 px-0 [&>span]:justify-start px-8">
-        {value[0].length ? value : "Select option..."}{" "}
+        {value && value[0].length ? value : "Select option..."}{" "}
         <ChevronsUpDown className="size-4 ms-auto opacity-70" />
       </Button>
     </Combobox.Trigger>
@@ -206,7 +203,7 @@ function ComboboxPositioner({
   children,
   className,
   ...rest
-}: ComboboxPositionerProps) {
+}: React.ComponentProps<typeof Combobox.Positioner>) {
   return (
     <Portal>
       <Combobox.Positioner className={className} {...rest}>
@@ -220,7 +217,7 @@ function ComboboxContent({
   children,
   className,
   ...rest
-}: ComboboxContentProps) {
+}: React.ComponentProps<typeof Combobox.Content>) {
   return (
     <Combobox.Content
       className={twMerge([
@@ -252,7 +249,11 @@ function ComboboxContent({
   );
 }
 
-function ComboboxInput({ children, className, ...rest }: ComboboxContentProps) {
+function ComboboxInput({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Combobox.Input>) {
   return (
     <div className="relative border-b border-primary/30">
       <div className="absolute size-3.5 inset-y-0 my-auto ml-5">
@@ -274,7 +275,7 @@ function ComboboxItemGrouo({
   children,
   className,
   ...rest
-}: ComboboxItemGroupProps) {
+}: React.ComponentProps<typeof Combobox.ItemGroup>) {
   return (
     <Combobox.ItemGroup
       className={twMerge([
@@ -288,7 +289,11 @@ function ComboboxItemGrouo({
   );
 }
 
-function ComboboxItem({ children, className, ...rest }: ComboboxItemProps) {
+function ComboboxItem({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Combobox.Item>) {
   return (
     <Combobox.Item
       className={twMerge([
@@ -302,14 +307,17 @@ function ComboboxItem({ children, className, ...rest }: ComboboxItemProps) {
   );
 }
 
-function ComboboxItemText({ children, ...rest }: ComboboxItemTextProps) {
+function ComboboxItemText({
+  children,
+  ...rest
+}: React.ComponentProps<typeof Combobox.ItemText>) {
   return <Combobox.ItemText {...rest}>{children}</Combobox.ItemText>;
 }
 
 function ComboboxItemIndicator({
   className,
   ...rest
-}: ComboboxItemIndicatorProps) {
+}: React.ComponentProps<typeof Combobox.ItemIndicator>) {
   return (
     <Combobox.ItemIndicator
       className={twMerge(["ms-auto", className])}
