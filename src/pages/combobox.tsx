@@ -115,7 +115,7 @@ const handleInputChange = (details: Combobox.InputValueChangeDetails) => {
   onValueChange={(details) => setState(details.value)}
 >
   <ComboboxControl>
-    <ComboboxTrigger value={state} />
+    <ComboboxTrigger />
   </ComboboxControl>
   <ComboboxPositioner>
     <ComboboxContent>
@@ -385,7 +385,7 @@ const handleInputChange = (details: Combobox.InputValueChangeDetails) => {
   onValueChange={(details) => setState(details.value)}
 >
   <ComboboxControl>
-    <ComboboxTrigger value={state} />
+    <ComboboxTrigger />
   </ComboboxControl>
   <ComboboxPositioner>
     <ComboboxContent>
