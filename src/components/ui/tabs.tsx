@@ -1,15 +1,13 @@
 import { twMerge } from "tailwind-merge";
 import { Button } from "@/components/ui/button";
 import { Frame } from "@/components/ui/frame";
-import {
-  Tabs,
-  type TabContentProps,
-  type TabListProps,
-  type TabsRootProps,
-  type TabTriggerProps,
-} from "@ark-ui/react/tabs";
+import { Tabs } from "@ark-ui/react/tabs";
 
-function TabsRoot({ children, className, ...rest }: TabsRootProps) {
+function TabsRoot({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Tabs.Root>) {
   return (
     <Tabs.Root
       className={twMerge(["flex flex-col gap-2", className])}
@@ -20,7 +18,11 @@ function TabsRoot({ children, className, ...rest }: TabsRootProps) {
   );
 }
 
-function TabsList({ children, className, ...rest }: TabListProps) {
+function TabsList({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Tabs.List>) {
   return (
     <Tabs.List className={twMerge(["px-6 flex", className])} {...rest}>
       {children}
@@ -33,7 +35,7 @@ function TabsTrigger({
   className,
   asChild,
   ...rest
-}: TabTriggerProps) {
+}: React.ComponentProps<typeof Tabs.Trigger>) {
   return (
     <Tabs.Trigger asChild {...rest}>
       {!asChild ? (
@@ -62,7 +64,11 @@ function TabsTrigger({
   );
 }
 
-function TabsContent({ children, className, ...rest }: TabContentProps) {
+function TabsContent({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Tabs.Content>) {
   return (
     <Tabs.Content
       className={twMerge([
