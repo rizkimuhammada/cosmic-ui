@@ -147,24 +147,21 @@ import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import {
-  Dialog,
-  type DialogBackdropProps,
-  type DialogCloseTriggerProps,
-  type DialogContentProps,
-  type DialogDescriptionProps,
-  type DialogPositionerProps,
-  type DialogRootProps,
-  type DialogTitleProps,
-  type DialogTriggerProps,
-} from "@ark-ui/react/dialog";
+import { Dialog } from "@ark-ui/react/dialog";
 import { Portal } from "@ark-ui/react/portal";
 
-function DialogRoot({ children, ...rest }: DialogRootProps) {
+function DialogRoot({
+  children,
+  ...rest
+}: React.ComponentProps<typeof Dialog.Root>) {
   return <Dialog.Root {...rest}>{children}</Dialog.Root>;
 }
 
-function DialogTrigger({ children, className, ...rest }: DialogTriggerProps) {
+function DialogTrigger({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Dialog.Trigger>) {
   return (
     <Dialog.Trigger asChild {...rest}>
       <Button className={className}>{children}</Button>
@@ -172,7 +169,10 @@ function DialogTrigger({ children, className, ...rest }: DialogTriggerProps) {
   );
 }
 
-function DialogBackdrop({ className, ...rest }: DialogBackdropProps) {
+function DialogBackdrop({
+  className,
+  ...rest
+}: React.ComponentProps<typeof Dialog.Backdrop>) {
   return (
     <Dialog.Backdrop
       className={twMerge([
@@ -188,7 +188,7 @@ function DialogPositioner({
   children,
   className,
   ...rest
-}: DialogPositionerProps) {
+}: React.ComponentProps<typeof Dialog.Positioner>) {
   return (
     <Dialog.Positioner className={className} {...rest}>
       {children}
@@ -196,7 +196,11 @@ function DialogPositioner({
   );
 }
 
-function DialogContent({ children, className, ...rest }: DialogContentProps) {
+function DialogContent({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Dialog.Content>) {
   return (
     <Dialog.Content
       className={twMerge([
@@ -228,7 +232,11 @@ function DialogContent({ children, className, ...rest }: DialogContentProps) {
   );
 }
 
-function DialogTitle({ children, className, ...rest }: DialogTitleProps) {
+function DialogTitle({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Dialog.Title>) {
   return (
     <Dialog.Title
       className={twMerge([
@@ -246,7 +254,7 @@ function DialogDescription({
   children,
   className,
   ...rest
-}: DialogDescriptionProps) {
+}: React.ComponentProps<typeof Dialog.Description>) {
   return (
     <Dialog.Description
       className={twMerge(["opacity-80 py-2 relative", className])}
@@ -262,7 +270,7 @@ function DialogCloseTrigger({
   className,
   asChild,
   ...rest
-}: DialogCloseTriggerProps) {
+}: React.ComponentProps<typeof Dialog.CloseTrigger>) {
   return (
     <Dialog.CloseTrigger asChild {...rest}>
       {!asChild ? (
