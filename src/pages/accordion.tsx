@@ -126,15 +126,13 @@ const data = [
 import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
 import { ChevronDown, FilePenLine } from "lucide-react";
-import {
-  Accordion,
-  type AccordionRootProps,
-  type AccordionItemProps,
-  type AccordionItemTriggerProps,
-  type AccordionItemContentProps,
-} from "@ark-ui/react/accordion";
+import { Accordion } from "@ark-ui/react/accordion";
 
-function AccordionRoot({ children, className, ...rest }: AccordionRootProps) {
+function AccordionRoot({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Accordion.Root>) {
   return (
     <Accordion.Root
       collapsible
@@ -146,7 +144,11 @@ function AccordionRoot({ children, className, ...rest }: AccordionRootProps) {
   );
 }
 
-function AccordionItem({ children, className, ...rest }: AccordionItemProps) {
+function AccordionItem({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Accordion.Item>) {
   return (
     <Accordion.Item
       className={twMerge([
@@ -173,7 +175,7 @@ function AccordionTrigger({
   children,
   className,
   ...rest
-}: AccordionItemTriggerProps) {
+}: React.ComponentProps<typeof Accordion.ItemTrigger>) {
   return (
     <Accordion.ItemTrigger
       className={twMerge([
@@ -192,7 +194,7 @@ function AccordionContent({
   children,
   className,
   ...rest
-}: AccordionItemContentProps) {
+}: React.ComponentProps<typeof Accordion.ItemContent>) {
   return (
     <Accordion.ItemContent
       className={twMerge([
@@ -207,52 +209,6 @@ function AccordionContent({
 }
 
 export { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent };
-              `}
-            </PreviewCode>
-            <SectionContent>
-              Update the import paths to match your project setup.
-            </SectionContent>
-          </div>
-          <div id="usage">
-            <SectionTitle>Usage</SectionTitle>
-            <PreviewCode>
-              {`
-import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/ui/accordion";
-              `}
-            </PreviewCode>
-            <PreviewCode>
-              {`
-const data = [
-  {
-    title: "Product Information",
-    content:
-      "Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability. Key features include advanced processing capabilities, and an intuitive user interface designed for both beginners and experts.",
-  },
-  {
-    title: "Shipping Details",
-    content:
-      "Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability. Key features include advanced processing capabilities, and an intuitive user interface designed for both beginners and experts.",
-  },
-  {
-    title: "Return Policy",
-    content:
-      "Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability. Key features include advanced processing capabilities, and an intuitive user interface designed for both beginners and experts.",
-  },
-];
-
-<AccordionRoot className="w-200" defaultValue={[data[0].title]}>
-  {data.map((item) => (
-    <AccordionItem key={item.title} value={item.title}>
-      <AccordionTrigger>{item.title}</AccordionTrigger>
-      <AccordionContent>{item.content}</AccordionContent>
-    </AccordionItem>
-  ))}
-</AccordionRoot>
               `}
             </PreviewCode>
           </div>

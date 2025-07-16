@@ -1,15 +1,13 @@
 import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
 import { ChevronDown, FilePenLine } from "lucide-react";
-import {
-  Accordion,
-  type AccordionRootProps,
-  type AccordionItemProps,
-  type AccordionItemTriggerProps,
-  type AccordionItemContentProps,
-} from "@ark-ui/react/accordion";
+import { Accordion } from "@ark-ui/react/accordion";
 
-function AccordionRoot({ children, className, ...rest }: AccordionRootProps) {
+function AccordionRoot({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Accordion.Root>) {
   return (
     <Accordion.Root
       collapsible
@@ -21,7 +19,11 @@ function AccordionRoot({ children, className, ...rest }: AccordionRootProps) {
   );
 }
 
-function AccordionItem({ children, className, ...rest }: AccordionItemProps) {
+function AccordionItem({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Accordion.Item>) {
   return (
     <Accordion.Item
       className={twMerge([
@@ -48,7 +50,7 @@ function AccordionTrigger({
   children,
   className,
   ...rest
-}: AccordionItemTriggerProps) {
+}: React.ComponentProps<typeof Accordion.ItemTrigger>) {
   return (
     <Accordion.ItemTrigger
       className={twMerge([
@@ -67,7 +69,7 @@ function AccordionContent({
   children,
   className,
   ...rest
-}: AccordionItemContentProps) {
+}: React.ComponentProps<typeof Accordion.ItemContent>) {
   return (
     <Accordion.ItemContent
       className={twMerge([
