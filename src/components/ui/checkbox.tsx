@@ -1,14 +1,13 @@
 import { twMerge } from "tailwind-merge";
 import { Frame } from "@/components/ui/frame";
 import { Check } from "lucide-react";
-import {
-  Checkbox,
-  type CheckboxControlProps,
-  type CheckboxLabelProps,
-  type CheckboxRootProps,
-} from "@ark-ui/react/checkbox";
+import { Checkbox } from "@ark-ui/react/checkbox";
 
-function CheckboxRoot({ children, className, ...rest }: CheckboxRootProps) {
+function CheckboxRoot({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Checkbox.Root>) {
   return (
     <Checkbox.Root
       className={twMerge([
@@ -22,7 +21,11 @@ function CheckboxRoot({ children, className, ...rest }: CheckboxRootProps) {
   );
 }
 
-function CheckboxLabel({ children, className, ...rest }: CheckboxLabelProps) {
+function CheckboxLabel({
+  children,
+  className,
+  ...rest
+}: React.ComponentProps<typeof Checkbox.Label>) {
   return (
     <Checkbox.Label className={twMerge(["order-2", className])} {...rest}>
       {children}
@@ -30,7 +33,10 @@ function CheckboxLabel({ children, className, ...rest }: CheckboxLabelProps) {
   );
 }
 
-function CheckboxControl({ className, ...rest }: CheckboxControlProps) {
+function CheckboxControl({
+  className,
+  ...rest
+}: React.ComponentProps<typeof Checkbox.Control>) {
   return (
     <Checkbox.Control
       className={twMerge([
