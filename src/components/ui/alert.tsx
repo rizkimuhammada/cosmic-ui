@@ -3,14 +3,18 @@ import { Frame } from "@/components/ui/frame";
 import { X } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { useState, useContext, createContext } from "react";
-import { Presence, type PresenceProps } from "@ark-ui/react/presence";
+import { Presence } from "@ark-ui/react/presence";
 
 const PresentContext = createContext<{
   present: boolean;
   setPresent: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
-function AlertRoot({ className, children, ...rest }: PresenceProps) {
+function AlertRoot({
+  className,
+  children,
+  ...rest
+}: React.ComponentProps<typeof Presence>) {
   const [present, setPresent] = useState(true);
 
   return (
